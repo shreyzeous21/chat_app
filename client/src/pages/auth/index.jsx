@@ -65,7 +65,7 @@ const Auth = () => {
                   </Button>
                 </TabsContent>
                 <TabsContent
-                  className="flex flex-col gap-5 mt-10"
+                  className="flex flex-col gap-5"
                   value="signup"
                 >
                   <Input
@@ -95,9 +95,6 @@ const Auth = () => {
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
-          <div className="hidden xl:flex justify-center items-center w-full h-full">
-            <img src="/login2.png" alt="bg" className="h-[700px]" />
           </div>
         </div>
       </div>
