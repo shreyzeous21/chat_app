@@ -1,14 +1,47 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SIGNUP_ROUTE } from "@/utils/constants";
 import { useState } from "react";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const validateFormLogin = () => {
+    if (email.length) {
+    }
+  };
+
+  const validateFormSignup = () => {
+    if (!email.length) {
+      toast.error("Email is required");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password should be same");
+      return false;
+    }
+    return true;
+  };
   const handleLogin = async () => {};
-  const handleSignup = async () => {};
+  const handleSignup = async () => {
+    if (validateFormSignup()) {
+      const response = await apiClient.post(
+        SIGNUP_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      console.log({ response });
+    }
+  };
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="h-[80vh] w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] bg-white border-2 text-opacity-90 shadow-2xl rounded-3xl flex items-center justify-center">
@@ -64,10 +97,7 @@ const Auth = () => {
                     Login
                   </Button>
                 </TabsContent>
-                <TabsContent
-                  className="flex flex-col gap-5"
-                  value="signup"
-                >
+                <TabsContent className="flex flex-col gap-5" value="signup">
                   <Input
                     placeholder="Email"
                     type="email"
